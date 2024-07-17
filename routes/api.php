@@ -27,7 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('quiz', [QuizController::class, 'add']);
-Route::get('quiz', [QuizController::class, 'index']);
+Route::get('quizzes', [QuizController::class, 'index']);
 Route::get('quiz/{id}', [QuizController::class, 'show']);
 Route::put('quiz/{id}', [QuizController::class, 'update']);
 Route::delete('quiz/{id}', [QuizController::class, 'destroy']);
