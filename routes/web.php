@@ -15,11 +15,14 @@ use App\Http\Controllers\Quiz\TakeQuizController;
 */
 
 Route::get('/', function () {
-    return view('quiz');
+    return view('welcome');
 });
 
 
 Route::get('/quiz/{id}', [QuizController::class, 'showQuiz'])->name('quiz.show');
 Route::post('/quiz/{id}', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
 Route::get('quiz-results/{id}', [TakeQuizController::class, 'showResults'])->name('quiz.results');
-Route::get('/quizzes', [QuizController::class, 'index'])->name('quiz.index');
+Route::get('/quiz', [QuizController::class, 'index'])->name('quiz.index');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

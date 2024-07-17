@@ -14,8 +14,8 @@ class QuizController extends Controller
 {
     public function index()
     {
-        $quizzes = Quiz::with('questions')->get();
-        return response()->json($quizzes, 200);
+        $quizzes = Quiz::all();
+        return view('quiz.index', compact('quizzes'));
     }
 
     public function add(Request $request)
@@ -38,7 +38,7 @@ class QuizController extends Controller
             return response()->json(['message' => 'Quiz not found'], 404);
         }
 
-        return response()->json($quiz, 200);
+        return view('quiz', compact('quiz'));
     }
 
     public function showQuiz($id)

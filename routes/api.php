@@ -26,33 +26,33 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 
-Route::post('quizzes', [QuizController::class, 'add']);
-Route::get('quizzes', [QuizController::class, 'index']);
-Route::get('quizzes/{id}', [QuizController::class, 'show']);
-Route::put('quizzes/{id}', [QuizController::class, 'update']);
-Route::delete('quizzes/{id}', [QuizController::class, 'destroy']);
+Route::post('quiz', [QuizController::class, 'add']);
+Route::get('quiz', [QuizController::class, 'index']);
+Route::get('quiz/{id}', [QuizController::class, 'show']);
+Route::put('quiz/{id}', [QuizController::class, 'update']);
+Route::delete('quiz/{id}', [QuizController::class, 'destroy']);
 
 
-Route::get('questions', [QuizQuestionController::class, 'index']);
-Route::post('questions', [QuizQuestionController::class, 'add']);
-Route::get('questions/{id}', [QuizQuestionController::class, 'show']);
-Route::put('questions/{id}', [QuizQuestionController::class, 'update']);
-Route::delete('questions/{id}', [QuizQuestionController::class, 'destroy']);
+Route::get('question', [QuizQuestionController::class, 'index']);
+Route::post('question', [QuizQuestionController::class, 'add']);
+Route::get('question/{id}', [QuizQuestionController::class, 'show']);
+Route::put('question/{id}', [QuizQuestionController::class, 'update']);
+Route::delete('question/{id}', [QuizQuestionController::class, 'destroy']);
 
 
-Route::get('answers', [QuizAnswerController::class, 'index']);
-Route::get('answers/{id}', [QuizAnswerController::class, 'show']);
-Route::delete('answers/{id}', [QuizAnswerController::class, 'destroy']);
-Route::post('answers', [QuizAnswerController::class, 'add']);
+Route::get('answer', [QuizAnswerController::class, 'index']);
+Route::get('answer/{id}', [QuizAnswerController::class, 'show']);
+Route::delete('answer/{id}', [QuizAnswerController::class, 'destroy']);
+Route::post('answer', [QuizAnswerController::class, 'add']);
 
 
-Route::get('take-quizzes', [TakeQuizController::class, 'index']);
-Route::post('take-quizzes', [TakeQuizController::class, 'store']);
-Route::get('take-quizzes/{id}', [TakeQuizController::class, 'show']);
-Route::put('take-quizzes/{id}', [TakeQuizController::class, 'update']);
-Route::delete('take-quizzes/{id}', [TakeQuizController::class, 'destroy']);
+Route::get('take-quizze', [TakeQuizController::class, 'index']);
+Route::post('take-quizze', [TakeQuizController::class, 'store']);
+Route::get('take-quizze/{id}', [TakeQuizController::class, 'show']);
+Route::put('take-quizze/{id}', [TakeQuizController::class, 'update']);
+Route::delete('take-quizze/{id}', [TakeQuizController::class, 'destroy']);
 
 
-Route::get('take-quiz-answers', [TakeQuizAnswerController::class, 'index']);
-Route::get('take-quiz-answers/{id}', [TakeQuizAnswerController::class, 'show']);
-Route::delete('take-quiz-answers/{id}', [TakeQuizAnswerController::class, 'destroy']);
+Route::get('take-quiz-answer', [TakeQuizAnswerController::class, 'index']);
+Route::get('take-quiz-answer/{id}', [TakeQuizAnswerController::class, 'show']);
+Route::delete('take-quiz-answer/{id}', [TakeQuizAnswerController::class, 'destroy']);
