@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Quiz\QuizController;
+use App\Http\Controllers\Quiz\TakeQuizController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('quiz');
 });
+
+
+Route::get('/quiz/{id}', [QuizController::class, 'showQuiz'])->name('quiz.show');
+Route::post('/quiz/{id}', [QuizController::class, 'submitQuiz'])->name('quiz.submit');
+Route::get('quiz-results/{id}', [TakeQuizController::class, 'showResults'])->name('quiz.results');
+Route::get('/quizzes', [QuizController::class, 'index'])->name('quiz.index');

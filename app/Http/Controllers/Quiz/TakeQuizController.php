@@ -26,32 +26,24 @@ class TakeQuizController extends Controller
             'answers.*.question_id' => 'required|integer',
             'answers.*.answer_id' => 'required|integer',
         ]);
-
-        // Calculate score
+    
         $score = 0;
         $totalQuestions = count($validatedData['answers']);
         
         foreach ($validatedData['answers'] as $answerData) {
             $quizAnswer = QuizAnswer::find($answerData['answer_id']);
-            if ($quizAnswer->correct) {
+            if ($quizAnswer && $quizAnswer->correct) {
                 $score++;
             }
         }
-
-        // Determine pass or fail (assuming a 50% pass mark)
-        $passMark = 0.5;
-        $passedOrNot = ($score / $totalQuestions) >= $passMark ? 1 : 0;
-
-        // Create TakeQuiz entry
+    
         $takeQuiz = TakeQuiz::create([
             'user_id' => $validatedData['user_id'],
             'quiz_id' => $validatedData['quiz_id'],
             'score' => $score,
             'content' => 'Quiz taken by user ID: ' . $validatedData['user_id'],
-            'passed_or_not' => $passedOrNot
         ]);
-
-        // Create TakeQuizAnswer entries
+    
         foreach ($validatedData['answers'] as $answerData) {
             TakeQuizAnswer::create([
                 'take_quiz_id' => $takeQuiz->id,
@@ -59,9 +51,35 @@ class TakeQuizController extends Controller
                 'answer_id' => $answerData['answer_id']
             ]);
         }
-
-        return response()->json($takeQuiz->load('answers'), 201);
+    
+        return response()->json([
+            'takeQuiz' => $takeQuiz->load('answers'),
+            'score' => $score,
+            'totalQuestions' => $totalQuestions,
+            'passedOrNot' => ($score / $totalQuestions) >= 0.5 ? 1 : 0,
+        ], 201);
     }
+    public function showResults($id)
+    {
+        $takeQuiz = TakeQuiz::with('quiz.questions.answers')->find($id);
+
+        if (!$takeQuiz) {
+            return redirect()->route('quiz.index')->with('error', 'Quiz results not found.');
+        }
+
+        $correctAnswers = [];
+        foreach ($takeQuiz->quiz->questions as $question) {
+            $correctAnswers[$question->id] = $question->answers->where('correct', 1)->first();
+        }
+
+        return view('quiz.results', [
+            'takeQuiz' => $takeQuiz,
+            'correctAnswers' => $correctAnswers,
+            'score' => $takeQuiz->score,
+            'totalQuestions' => $takeQuiz->quiz->questions->count(),
+            'passedOrNot' => $takeQuiz->passed_or_not
+        ]);
+}
 
     public function show($id)
     {

@@ -25,10 +25,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::get('users',[UserController::class, 'index']);
-Route::get('users/{id}',[UserController::class, 'show']);
-Route::post('users,'[UserController::class], 'add');
-
 
 Route::post('quizzes', [QuizController::class, 'add']);
 Route::get('quizzes', [QuizController::class, 'index']);
@@ -58,10 +54,5 @@ Route::delete('take-quizzes/{id}', [TakeQuizController::class, 'destroy']);
 
 
 Route::get('take-quiz-answers', [TakeQuizAnswerController::class, 'index']);
-Route::post('take-quiz-answers', [TakeQuizAnswerController::class, 'store']);
 Route::get('take-quiz-answers/{id}', [TakeQuizAnswerController::class, 'show']);
-Route::put('take-quiz-answers/{id}', [TakeQuizAnswerController::class, 'update']);
 Route::delete('take-quiz-answers/{id}', [TakeQuizAnswerController::class, 'destroy']);
-
-
-

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('score');
             $table->text('content');
             $table->timestamps();
-            $table->integer('passed_or_not');
+            $table->boolean('passed_or_not');
         });
     }
     
